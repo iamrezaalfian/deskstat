@@ -17,7 +17,7 @@ Tauri's built-in tray on Linux wraps `libappindicator`, which has no separate "a
 Plane integration needs one manual step — there's no settings UI yet, so config lives at:
 
 ```
-~/.local/share/com.raze.deskstat/plane_settings.json
+~/.local/share/com.deskstat.app/plane_settings.json
 ```
 
 ```json

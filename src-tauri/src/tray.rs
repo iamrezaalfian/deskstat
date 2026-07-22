@@ -48,7 +48,7 @@ struct DeskstatTray {
 // used here instead of Tauri's tray on this platform.
 impl ksni::Tray for DeskstatTray {
     fn id(&self) -> String {
-        "com.raze.deskstat".into()
+        "com.deskstat.app".into()
     }
 
     fn title(&self) -> String {

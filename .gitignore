@@ -13,8 +13,7 @@ dist-ssr
 *.local
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+.vscode/
 .idea
 .DS_Store
 *.suo
@@ -22,3 +21,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets — Plane settings/token live outside the repo
+# (~/.local/share/com.raze.deskstat/plane_settings.json) but ignore common
+# secret-file patterns here too in case one ever lands in-tree.
+.env
+.env.*
+plane_settings.json
+*.pem
+*credentials*
+*secret*
