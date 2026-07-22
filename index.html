@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deskstat</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+
+  <body>
+    <main class="app">
+      <nav class="tabs">
+        <div class="segmented">
+          <button class="tab active" data-tab="stats">Stats</button>
+          <button class="tab" data-tab="todos">Todos</button>
+          <button class="tab" data-tab="power">Power</button>
+        </div>
+        <button id="refresh-btn" class="refresh-btn" title="Refresh">⟳</button>
+      </nav>
+
+      <section id="tab-stats" class="tab-panel active">
+        <div class="card card-claude">
+          <div class="card-title">Claude quota</div>
+
+          <div class="quota-row">
+            <div class="quota-label-row">
+              <span class="quota-name">5-hour session</span>
+              <span class="quota-pct" id="q5-pct">—</span>
+            </div>
+            <div class="bar"><div class="bar-fill" id="q5-bar" style="width:0%"></div></div>
+            <span class="quota-reset" id="q5-reset"></span>
+          </div>
+
+          <div class="quota-row">
+            <div class="quota-label-row">
+              <span class="quota-name">Weekly</span>
+              <span class="quota-pct" id="qw-pct">—</span>
+            </div>
+            <div class="bar"><div class="bar-fill" id="qw-bar" style="width:0%"></div></div>
+            <span class="quota-reset" id="qw-reset"></span>
+          </div>
+        </div>
+
+        <div class="card card-system">
+          <div class="card-title">System</div>
+
+          <div class="metric-row">
+            <div class="metric-label-row"><span>CPU</span><span id="sys-cpu-pct">—</span></div>
+            <div class="bar"><div class="bar-fill" id="sys-cpu-bar" style="width:0%"></div></div>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Memory</span><span id="sys-mem-pct">—</span></div>
+            <div class="bar"><div class="bar-fill" id="sys-mem-bar" style="width:0%"></div></div>
+          </div>
+
+          <div class="metric-row">
+            <div class="metric-label-row"><span>Disk /</span><span id="sys-disk-pct">—</span></div>
+            <div class="bar"><div class="bar-fill" id="sys-disk-bar" style="width:0%"></div></div>
+          </div>
+
+          <div class="sys-grid">
+            <div class="stat"><span class="stat-label">CPU temp</span><span class="stat-value" id="sys-cputemp">—</span></div>
+            <div class="stat"><span class="stat-label">GPU temp</span><span class="stat-value" id="sys-gputemp">—</span></div>
+            <div class="stat"><span class="stat-label">SSD temp</span><span class="stat-value" id="sys-ssdtemp">—</span></div>
+            <div class="stat"><span class="stat-label">Battery</span><span class="stat-value" id="sys-battery">—</span></div>
+            <div class="stat"><span class="stat-label">Network</span><span class="stat-value small" id="sys-net">—</span></div>
+            <div class="stat"><span class="stat-label">Uptime</span><span class="stat-value small" id="sys-uptime">—</span></div>
+          </div>
+        </div>
+
+        <div class="card card-vpn" id="vpn-card">
+          <div class="card-title">VPN</div>
+          <div class="vpn-row">
+            <span class="vpn-dot" id="vpn-dot"></span>
+            <span id="vpn-status">Not connected</span>
+          </div>
+          <div class="vpn-details" id="vpn-details">
+            <div class="stat"><span class="stat-label">Name</span><span class="stat-value" id="vpn-name">—</span></div>
+            <div class="stat"><span class="stat-label">IP</span><span class="stat-value" id="vpn-ip">—</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-todos" class="tab-panel">
+        <div class="card">
+          <div class="card-title-row">
+            <div class="card-title">Plane</div>
+            <div class="plane-header-actions">
+              <button id="plane-toggle-done" class="icon-btn" title="Only completed">▽</button>
+              <button id="plane-toggle-create" class="icon-btn" title="New issue">+</button>
+              <button id="plane-refresh" class="icon-btn" title="Refresh">⟳</button>
+            </div>
+          </div>
+
+          <div class="plane-filter-row">
+            <select id="plane-project-filter" class="plane-project-picker"></select>
+            <input id="plane-search" class="plane-search-input" placeholder="Search issues…" autocomplete="off" />
+          </div>
+
+          <form id="plane-create-form" class="plane-create-form plane-create-form-hidden">
+            <input id="plane-new-name" placeholder="New issue…" autocomplete="off" />
+            <button type="submit">Add</button>
+          </form>
+
+          <div id="plane-error" class="error"></div>
+          <ul id="plane-list" class="plane-list"></ul>
+        </div>
+      </section>
+
+      <section id="tab-power" class="tab-panel">
+        <div class="card">
+          <div class="card-title">Power timer</div>
+
+          <div class="power-actions" id="power-actions">
+            <button class="power-action-btn" data-action="shutdown">⏻<span>Shutdown</span></button>
+            <button class="power-action-btn" data-action="suspend">⏾<span>Suspend</span></button>
+            <button class="power-action-btn" data-action="hibernate">❄<span>Hibernate</span></button>
+          </div>
+
+          <label class="power-minutes-label">
+            Minutes
+            <input id="power-minutes" type="number" min="1" value="30" />
+          </label>
+
+          <button id="power-start" class="power-start-btn">Start timer</button>
+
+          <div id="power-active" class="power-active" style="display:none">
+            <div class="power-active-text">
+              <span id="power-active-action">—</span> in <span id="power-countdown">—</span>
+            </div>
+            <button id="power-cancel" class="btn-secondary">Cancel</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
