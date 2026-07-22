@@ -1,7 +1,7 @@
 [package]
 name = "deskstat"
 version = "0.1.0"
-description = "A Tauri App"
+description = "Tray-popup dashboard: system stats, Claude quota, VPN status, and Plane issues"
 authors = ["you"]
 edition = "2021"
 

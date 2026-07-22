@@ -1,0 +1,10 @@
+[Desktop Entry]
+Categories={{{categories}}}
+{{#if comment}}Comment={{{comment}}}{{/if}}
+Exec={{{exec}}}
+Icon={{{icon}}}
+Name={{{name}}}
+NoDisplay=true
+StartupWMClass={{{exec}}}
+Terminal=false
+Type=Application
