@@ -36,16 +36,27 @@ Get the API token from your Plane account's **Personal Access Tokens** page (sho
 
 ```bash
 npm install
-npm run tauri dev
+npm run tauri dev        # or scripts/dev.sh
 ```
 
 ## Build
 
 ```bash
-npm run tauri build
+npm run tauri build      # or scripts/build.sh
 ```
 
 Produces a standalone binary plus `.deb`/`.rpm`/`.AppImage` bundles under `src-tauri/target/release/`. Always build through the Tauri CLI (`tauri dev` / `tauri build`), not a bare `cargo build` — the plain cargo build skips whatever tells the binary to embed the frontend instead of reaching for the dev server, so the release binary would just show a blank "connection refused" page.
+
+## Scripts
+
+```
+scripts/dev.sh          # same as npm run tauri dev
+scripts/build.sh        # same as npm run tauri build
+scripts/build-quick.sh  # real binary, skips .deb/.rpm/.AppImage bundling — fast iteration
+scripts/restart.sh      # kill any running instance, launch the current release binary
+```
+
+See **[GUIDELINE.md](GUIDELINE.md)** for the non-obvious stuff: the tray implementation rationale, how to actually see the window while developing (it starts hidden), and Plane API quirks.
 
 ## Stack
 
