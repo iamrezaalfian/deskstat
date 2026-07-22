@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="src-tauri/icons/icon.png" width="96" alt="deskstat icon">
+</p>
+
 # deskstat
 
 A tray-popup dashboard for Linux (built/tested on XFCE), written in Tauri + vanilla TypeScript + Rust.
@@ -36,22 +40,22 @@ Get the API token from your Plane account's **Personal Access Tokens** page (sho
 
 ```bash
 npm install
-npm run tauri dev        # or scripts/dev.sh
+scripts/dev.sh
 ```
 
 ## Build
 
 ```bash
-npm run tauri build      # or scripts/build.sh
+scripts/build.sh
 ```
 
-Produces a standalone binary plus `.deb`/`.rpm`/`.AppImage` bundles under `src-tauri/target/release/`. Always build through the Tauri CLI (`tauri dev` / `tauri build`), not a bare `cargo build` — the plain cargo build skips whatever tells the binary to embed the frontend instead of reaching for the dev server, so the release binary would just show a blank "connection refused" page.
+Produces a standalone binary plus `.deb`/`.rpm`/`.AppImage` bundles under `src-tauri/target/release/`. Always build through one of these scripts (or the Tauri CLI directly), never a bare `cargo build` — plain cargo skips whatever tells the binary to embed the frontend instead of reaching for the dev server, so the release binary would just show a blank "connection refused" page.
 
 ## Scripts
 
 ```
-scripts/dev.sh          # same as npm run tauri dev
-scripts/build.sh        # same as npm run tauri build
+scripts/dev.sh          # vite + cargo watch, hot reload
+scripts/build.sh        # full production build with bundles
 scripts/build-quick.sh  # real binary, skips .deb/.rpm/.AppImage bundling — fast iteration
 scripts/restart.sh      # kill any running instance, launch the current release binary
 ```
