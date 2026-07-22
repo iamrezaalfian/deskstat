@@ -23,7 +23,7 @@ dist-ssr
 *.sw?
 
 # Secrets — Plane settings/token live outside the repo
-# (~/.local/share/com.raze.deskstat/plane_settings.json) but ignore common
+# (~/.local/share/com.deskstat.app/plane_settings.json) but ignore common
 # secret-file patterns here too in case one ever lands in-tree.
 .env
 .env.*
